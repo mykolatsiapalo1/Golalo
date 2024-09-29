@@ -2,8 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
+*,
+*::before,
+*::after {
   font-family: var(--font-manrope);
+  box-sizing: border-box;
 }
 
 @layer utilities {
