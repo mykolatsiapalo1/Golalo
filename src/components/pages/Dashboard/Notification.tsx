@@ -1,7 +1,7 @@
 "use client";
 
 import { CrossIcon } from "@/icons";
-import { Typography } from "./Typography";
+import { Typography } from "../../core/Typography";
 import { formatTimeAgo } from "@/lib/utils";
 import { IUser, useGlobalStore } from "@/globalStore/globalStore";
 

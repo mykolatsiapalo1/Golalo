@@ -1,7 +1,7 @@
 "use client";
 import { Typography } from "@/components/core/Typography";
 import { useGlobalStore } from "@/globalStore/globalStore";
-import { Notification } from "@/components/core/Notification";
+import { Notification } from "./Notification";
 
 export function NotificationsList() {
   const user = useGlobalStore(({ user }) => user);

@@ -1,5 +1,5 @@
 import { MyListings } from "@/components/pages/MyListings/MyListings";
 
-export default function DashboardPage() {
+export default function ListingsPage() {
   return <MyListings />;
 }

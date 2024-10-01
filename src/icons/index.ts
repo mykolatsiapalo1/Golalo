@@ -13,3 +13,7 @@ export * from "./MoreIcon";
 export * from "./HourGlassIcon";
 export * from "./CalendarIcon";
 export * from "./ArrowCalendarIcon";
+export * from "./SearchIcon";
+export * from "./ArrowPaginationIcon";
+export * from "./ArrowIcon";
+export * from "./ArrowDropDownIcon";

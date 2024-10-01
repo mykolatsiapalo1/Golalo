@@ -64,17 +64,19 @@ export interface IUser {
   }[];
 }
 
-const MOCK_TASKS = ["#FFFFFF", "#FF7125", "#DC3545"].map((color, id) => ({
-  id,
-  title: `Task ${id + 1}`,
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sem leo, suscipit eget elit porttitor, volutpat consequat turpis. In interdum mauris et urna maximus, sed tincidunt nulla porta. Maecenas congue risus enim. Quisque egestas augue sem, nec egestas leo mattis ut. Phasellus non sem eu massa finibus volutpat. Vestibulum condimentum augue odio, in dapibus erat vehicula ut. Praesent ac massa at urna dignissim iaculis egestas ut felis. Nullam pharetra, lorem non congue fringilla, nisl ex ullamcorper nibh, nec vehicula nulla libero id dui. Pellentesque bibendum pulvinar tempor. Fusce sodales tincidunt ex, non aliquet arcu consectetur posuere. Mauris suscipit auctor tempor. Phasellus a finibus felis, vel porta nibh. Ut laoreet purus sed enim feugiat, non bibendum nunc semper. Cras aliquam velit in tincidunt pulvinar. Morbi vitae dictum nibh. Sed viverra nunc sit amet libero tincidunt euismod.`,
-  status: "open",
-  date: new Date(Date.now() + id * 2 * 24 * 60 * 60 * 1000).toISOString(),
-  category: "Accounting",
-  color,
-}));
+const tasks: IUser["tasks"] = ["#FFFFFF", "#FF7125", "#DC3545"].map(
+  (color, id) => ({
+    id,
+    title: `Task ${id + 1}`,
+    description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sem leo, suscipit eget elit porttitor, volutpat consequat turpis. In interdum mauris et urna maximus, sed tincidunt nulla porta. Maecenas congue risus enim. Quisque egestas augue sem, nec egestas leo mattis ut. Phasellus non sem eu massa finibus volutpat. Vestibulum condimentum augue odio, in dapibus erat vehicula ut. Praesent ac massa at urna dignissim iaculis egestas ut felis. Nullam pharetra, lorem non congue fringilla, nisl ex ullamcorper nibh, nec vehicula nulla libero id dui. Pellentesque bibendum pulvinar tempor. Fusce sodales tincidunt ex, non aliquet arcu consectetur posuere. Mauris suscipit auctor tempor. Phasellus a finibus felis, vel porta nibh. Ut laoreet purus sed enim feugiat, non bibendum nunc semper. Cras aliquam velit in tincidunt pulvinar. Morbi vitae dictum nibh. Sed viverra nunc sit amet libero tincidunt euismod.`,
+    status: "open",
+    date: new Date(Date.now() + id * 2 * 24 * 60 * 60 * 1000).toISOString(),
+    category: "Accounting",
+    color,
+  })
+);
 
-const MOCK_LISTINGS: IUser["listings"] = Array.from(
+const listings: IUser["listings"] = Array.from(
   { length: 12 },
   (_, id) => ({
     id,
@@ -99,16 +101,16 @@ const MOCK_LISTINGS: IUser["listings"] = Array.from(
     },
     location: "Sydney",
     completed: id > 1,
-    nextTask: MOCK_TASKS[0],
+    nextTask: tasks[0],
   })
 );
 
-const MOCK_REVIEWS: IUser["reviews"] = Array.from({ length: 10 }, (_, id) => ({
+const reviews: IUser["reviews"] = Array.from({ length: 10 }, (_, id) => ({
   id,
   rating: 5,
 }));
 
-const MOCK_MESSAGES: IUser["messages"] = Array.from(
+const messages: IUser["messages"] = Array.from(
   { length: 10 },
   (_, id) => ({
     id,
@@ -117,13 +119,13 @@ const MOCK_MESSAGES: IUser["messages"] = Array.from(
   })
 );
 
-const MOCK_CATEGORIES: IUser["categoriesHired"] = [
+const categoriesHired: IUser["categoriesHired"] = [
   "Accounting",
   "Architect",
   "Bricklayer",
 ].map((title, id) => ({ id, title }));
 
-const MOCK_NOTIFICATIONS: IUser["notifications"] = Array.from({
+const notifications: IUser["notifications"] = Array.from({
   length: 3,
 }).map((_, id) => ({
   id,
@@ -143,15 +145,15 @@ const MOCK_USER: IUser = {
     "https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp",
   tag: "johndoe",
   role: UserRole.Household,
-  notifications: MOCK_NOTIFICATIONS,
-  categoriesHired: MOCK_CATEGORIES,
+  notifications,
+  categoriesHired,
   location: "Sydney",
-  reviews: MOCK_REVIEWS,
+  reviews,
   type: "Apartment",
   owned: true,
-  listings: MOCK_LISTINGS,
-  tasks: MOCK_TASKS,
-  messages: MOCK_MESSAGES,
+  listings,
+  tasks,
+  messages,
 };
 
 export const useGlobalStore = create<{
@@ -162,17 +164,18 @@ export const useGlobalStore = create<{
   user: MOCK_USER,
   setUser: (user: IUser) => set({ user }),
   readNotification: (id: number) =>
-    set((state) => {
-      if (!state.user) return state;
-      return {
-        user: {
-          ...state.user,
-          notifications: state.user.notifications.map((notification) =>
-            notification.id === id && !notification.read
-              ? { ...notification, read: true }
-              : notification
-          ),
-        },
-      };
-    }),
+    set((state) =>
+      !state.user
+        ? state
+        : {
+            user: {
+              ...state.user,
+              notifications: state.user.notifications.map((notification) =>
+                notification.id === id && !notification.read
+                  ? { ...notification, read: true }
+                  : notification
+              ),
+            },
+          }
+    ),
 }));

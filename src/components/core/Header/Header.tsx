@@ -6,9 +6,9 @@ import {
   NotificationIcon,
 } from "@/icons";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { UserInfo } from "./UserInfo";
-import { Typography } from "./Typography";
+import { Typography } from "../Typography";
+import { Button } from "@/components/ui/button";
 
 const links = [
   {

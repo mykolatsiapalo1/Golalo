@@ -79,3 +79,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.autosize {
+  field-sizing: content;
+}
